@@ -865,7 +865,7 @@ function renderBusiness(C,type){
     const eSum=[mobileGrids.reduce((s,[g])=>s+(GRID_DETAIL[g].入企主卡?GRID_DETAIL[g].入企主卡[0]:0),0),mobileGrids.reduce((s,[g])=>s+(GRID_DETAIL[g].入企主卡?GRID_DETAIL[g].入企主卡[1]||0:0),0),null];
     if(mSum[0])mSum[2]=mSum[1]/mSum[0];if(eSum[0])eSum[2]=eSum[1]/eSum[0];
     const mkS=(v)=>{if(!v||v[0]===0)return`<td>--</td>`;const rc=rateColor(v[2]);return`<td><span class="badge" style="background:${rc.bg};color:${rc.fg}">${rc.label}</span><div class="text-xs text-gray-400 mt-1">${fmtD(v[1])}/${fmtD(v[0])}</div></td>`};
-    html+=`<tr class="subtotal"<td class="text-left font-medium">合计</td><td>--</td>${mkS(mSum)}${mkS(eSum)}</tr>`;
+    html+=`<tr class="subtotal"><td class="text-left font-medium">合计</td><td>--</td>${mkS(mSum)}${mkS(eSum)}</tr>`;
     html+=`</tbody></table></div></div>`;
   }else{
     // Broadband KPIs
