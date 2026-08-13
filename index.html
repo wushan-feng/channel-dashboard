@@ -423,7 +423,7 @@ function renderOverview(C){
     <div class="mb-3 flex gap-2 flex-wrap">`;
   const grids=currentBranch==="all"?Object.keys(GRID_DETAIL):Object.keys(GRID_DETAIL).filter(g=>{
     for(const b of BRANCHES){if(currentBranch===b&&GRIDS[b]&&GRIDS[b].includes(g))return true}return false});
-  const metrics=["移动新增","入企主卡","宽带新增","FTTR-C","FTTR-B","天翼智屏","新增高套","新增贡献值"];
+  const metrics=["移动新增","入企主卡","宽带新增","FTTR-C","FTTR-B","天翼智屏","新增高套","存量高套","新增贡献值"];
   html+=`<div class="scroll-table"><table class="data-table"><thead><tr><th>网格</th><th>所属支局</th>`;
   metrics.forEach(m=>{html+=`<th>${m}</th>`});
   html+=`</tr></thead><tbody>`;
@@ -461,7 +461,7 @@ function renderOverview(C){
     ["移动新增","宽带新增","FTTR-C","天翼智屏","新增高套"].forEach((k,i)=>{
       datasets.push({label:k,data:branchNames.map(b=>OVERVIEW[k][b]?taRate(OVERVIEW[k][b][2])*100:null),backgroundColor:COLORS_HEX[i],borderRadius:4});
     });
-    datasets.push({type:"line",label:"达标线(100%)",data:labels.map(()=>100),borderColor:"#800000",borderWidth:2,borderDash:[5,5],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false});
+    datasets.push({type:"line",label:"达标线(100%)",data:labels.map(()=>100),borderColor:"#800000",borderWidth:2,borderDash:[5,5],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false});
     const ctx1=document.getElementById("chartBranchRate");
     if(ctx1){const ch=new Chart(ctx1,{type:"bar",data:{labels,datasets},options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,max:200,ticks:{callback:v=>v+"%"},title:{display:true,text:"完成率(%)"}}}}});chartInstances.push(ch)}
     const radarLabels=["移动新增","入企主卡","宽带新增","FTTR-C","天翼智屏","新增高套","存量高套"];
@@ -604,7 +604,7 @@ function renderSmartLight(C){
   setTimeout(()=>{
     const labels=data.map(d=>d.grid);const keys=["FTTR_C","智屏","新增高套"];
     const ds=keys.map((k,i)=>({label:k==="FTTR_C"?"FTTR-C":k==="新增高套"?"新增高套":k,data:data.map(d=>d[k]&&d[k][2]!==null?taRate(d[k][2])*100:null),backgroundColor:COLORS_HEX[i]+"CC",borderRadius:4}));
-    ds.push({type:"line",label:"达标线(100%)",data:labels.map(()=>100),borderColor:"#800000",borderWidth:2,borderDash:[5,5],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false});
+    ds.push({type:"line",label:"达标线(100%)",data:labels.map(()=>100),borderColor:"#800000",borderWidth:2,borderDash:[5,5],pointRadius:0,fill:false},{type:"line",label:"时需完成率("+Math.round(TIME_RATE*100)+"%)",data:labels.map(()=>Math.round(TIME_RATE*100)),borderColor:"#7F6000",borderWidth:1.5,borderDash:[3,3],pointRadius:0,fill:false});
     const ctx=document.getElementById("chartSL");
     if(ctx){const ch=new Chart(ctx,{type:"bar",data:{labels,datasets:ds},options:{responsive:true,plugins:{legend:{position:"bottom",labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,max:200,ticks:{callback:v=>v+"%"},title:{display:true,text:"完成率(%)"}}}}});chartInstances.push(ch)}
   },100);
